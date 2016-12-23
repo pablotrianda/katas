@@ -37,12 +37,13 @@ class TestPotter < Test::Unit::TestCase
 end
 
 class Cashier 
+	TWO_BOOK_DISCOUNT = 5
 	def self.bill_me(*books)
 		apply_discount(books.length)
 	end
 
-	def self.discount(price)
-		(price * 5) / 100.0
+	def self.calculate_discount(price, percent_value)
+		(price * percent_value) / 100.0
 	end
 
 	def self.just_one_book?(number_of_books)
@@ -53,7 +54,7 @@ class Cashier
 		unit_price = 8
 		return unit_price if just_one_book?(number_of_books)
 		subtotal = unit_price * number_of_books
-		total = subtotal - discount(subtotal)
+		total = subtotal - calculate_discount(subtotal, TWO_BOOK_DISCOUNT)
 		total
 	end
 end
